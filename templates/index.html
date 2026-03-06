@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>班級學期事件表</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>班級學期事件表</h1>
+
+        <form action="/add" method="post" class="event-form">
+            <div class="row">
+                <label>日期</label>
+                <input type="date" name="date" required>
+            </div>
+
+            <div class="row">
+                <label>時間</label>
+                <input type="time" name="time" required>
+            </div>
+
+            <div class="row">
+                <label>科目</label>
+                <input type="text" name="subject" placeholder="例如：生物、英文、班會" required>
+            </div>
+
+            <div class="row">
+                <label>事件</label>
+                <input type="text" name="title" placeholder="例如：期中考、報告截止" required>
+            </div>
+
+            <button type="submit">新增事件</button>
+        </form>
+
+        <hr>
+
+        <h2>事件列表（由近到遠）</h2>
+
+        <div class="event-list">
+            {% for event in events %}
+            <div class="event-card">
+                <div class="event-datetime">
+                    {{ event["date"] }} {{ event["time"] }}
+                </div>
+                <div class="event-subject">{{ event["subject"] }}</div>
+                <div class="event-title">{{ event["title"] }}</div>
+            </div>
+            {% else %}
+            <p>目前還沒有事件</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
